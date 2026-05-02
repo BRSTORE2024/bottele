@@ -1,0 +1,4 @@
+node_modules/
+bots/
+package-lock.json
+public

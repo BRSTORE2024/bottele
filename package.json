@@ -1,0 +1,23 @@
+{
+  "name": "br-anjinc",
+  "version": "2.0.0",
+  "description": "Pesenan BR tukang nego",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js"
+  },
+  "dependencies": {
+    "axios": "^1.12.2",
+    "bcrypt": "^6.0.0",
+    "body-parser": "^1.20.3",
+    "date-fns": "^4.1.0",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "jimp": "^1.6.1",
+    "jsqr": "^1.4.0",
+    "multer": "^2.0.2",
+    "node-telegram-bot-api": "^0.66.0",
+    "qrcode": "^1.5.4",
+    "sharp": "^0.34.4"
+  }
+}

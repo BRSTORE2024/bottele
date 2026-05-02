@@ -1,0 +1,17 @@
+[
+  {
+    "username": "isabel",
+    "password": "$2b$10$mOvMwzCvw3w6seSqZiDshuPhrFCRGTUt3UbKyxB0jH4TMps5RxDZi",
+    "role": "owner",
+    "createdAt": "2026-05-02T02:02:54.884Z"
+  },
+  {
+    "username": "admin",
+    "password": "$2b$10$z7saRv4mMycFvrHIC9nQ4emqWzw/AHyqkSEZVwQs9kGHeG88EmBVC",
+    "role": "admin",
+    "allowedBots": [
+      "bot_1777687379669"
+    ],
+    "createdAt": "2026-05-02T02:19:20.019Z"
+  }
+]

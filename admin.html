@@ -1987,6 +1987,7 @@
     try {
       const res = await fetch(`/api/bots/${currentBotId}/products`);
       allProducts = await res.json();
+      allProducts.sort((a, b) => a.name.localeCompare(b.name));
       const container = document.getElementById('productsList');
 
       if (allProducts.length === 0) {

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bot Panel — Login</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #000000;
+    --surface: #0a0a0a;
+    --surface2: #111111;
+    --surface3: #1a1a1a;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --accent: #3fb950;
+    --accent2: #58a6ff;
+    --accent3: #f78166;
+    --text: #e6edf3;
+    --text2: #8b949e;
+    --text3: #484f58;
+  }
+  :root.light {
+    --bg: #f0f2f5;
+    --surface: #ffffff;
+    --surface2: #f6f8fa;
+    --surface3: #eaeef2;
+    --border: rgba(0,0,0,0.08);
+    --border2: rgba(0,0,0,0.15);
+    --accent: #2da44e;
+    --text: #1c2128;
+    --text2: #57606a;
+    --text3: #8c959f;
+  }
+  #themeToggleBtn {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 9999;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 7px 11px;
+    cursor: pointer;
+    color: var(--text2);
+    font-size: 14px;
+    line-height: 1;
+    transition: background .2s, color .2s;
+  }
+  #themeToggleBtn:hover { background: var(--surface3); color: var(--text); }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Sora', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Background grid */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(88,166,255,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(88,166,255,.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  /* Glow */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(88,166,255,.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .login-wrap {
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .login-logo {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .login-logo-icon {
+    width: 52px; height: 52px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 14px;
+    box-shadow: 0 0 30px rgba(88,166,255,.2);
+  }
+  .login-logo-icon.has-img { background: transparent !important; }
+
+
+  .login-logo-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 1px;
+  }
+
+  .login-logo-sub {
+    font-size: 13px;
+    color: var(--text3);
+    margin-top: 4px;
+  }
+
+  .login-card {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: 14px;
+    padding: 32px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.4);
+  }
+
+  .login-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .login-sub {
+    font-size: 13px;
+    color: var(--text3);
+    margin-bottom: 28px;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .7px;
+    color: var(--text2);
+    margin-bottom: 7px;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 10px 14px;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: 'Sora', sans-serif;
+    transition: border-color .15s, background .15s;
+    outline: none;
+  }
+
+  .form-input:focus {
+    border-color: var(--accent2);
+    background: var(--surface3);
+  }
+
+  .form-input::placeholder { color: var(--text3); }
+
+  .btn-login {
+    width: 100%;
+    padding: 11px;
+    background: linear-gradient(135deg, rgba(88,166,255,.2), rgba(63,185,80,.15));
+    border: 1px solid rgba(88,166,255,.35);
+    border-radius: 8px;
+    color: var(--accent2);
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Sora', sans-serif;
+    cursor: pointer;
+    transition: all .2s;
+    margin-top: 8px;
+    letter-spacing: .3px;
+  }
+
+  .btn-login:hover {
+    background: linear-gradient(135deg, rgba(88,166,255,.3), rgba(63,185,80,.2));
+    border-color: var(--accent2);
+    box-shadow: 0 0 20px rgba(88,166,255,.15);
+  }
+
+  .btn-login:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+  }
+
+  .error-msg {
+    background: rgba(247,129,102,.1);
+    border: 1px solid rgba(247,129,102,.25);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--accent3);
+    margin-bottom: 16px;
+    display: none;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .error-msg.show { display: flex; }
+
+  .login-footer {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 12px;
+    color: var(--text3);
+  }
+</style>
+</head>
+<body>
+
+<div class="login-wrap">
+  <div class="login-logo">
+    <div class="login-logo-icon" id="loginLogoIcon">
+      <svg id="loginLogoSvg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2M20 14h2M15 13v2M9 13v2"/></svg>
+      <img id="loginLogoImg" src="" alt="Logo" style="display:none;width:54px;height:54px;object-fit:contain;border-radius:10px;">
+    </div>
+    <div class="login-logo-title">BOT PANEL</div>
+    <div class="login-logo-sub">Pusat Kontrol Bot</div>
+  </div>
+
+  <div class="login-card">
+    <div class="login-title">Sign In</div>
+    <div class="login-sub">Enter your credentials to continue</div>
+
+    <div class="error-msg" id="errorMsg">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+      <span id="errorText">Invalid username or password</span>
+    </div>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label class="form-label">Username</label>
+        <input type="text" class="form-input" id="username" placeholder="Username" required autocomplete="username">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" id="password" placeholder="••••••••" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn-login" id="loginBtn">Sign In</button>
+    </form>
+  </div>
+
+  <div class="login-footer">Reppo.id &copy; 2026</div>
+</div>
+
+<script>
+  // If already logged in, redirect
+  fetch('/api/auth/me').then(r => r.json()).then(data => {
+    if (data.user) {
+      window.location.href = data.user.role === 'owner' ? '/owner' : '/admin';
+    }
+  }).catch(() => {});
+
+  document.getElementById('loginForm').addEventListener('submit', async e => {
+    e.preventDefault();
+
+    const btn = document.getElementById('loginBtn');
+    const errorMsg = document.getElementById('errorMsg');
+    const errorText = document.getElementById('errorText');
+
+    btn.disabled = true;
+    btn.textContent = 'Signing in...';
+    errorMsg.classList.remove('show');
+
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        window.location.href = data.user.role === 'owner' ? '/owner' : '/admin';
+      } else {
+        errorText.textContent = data.error || 'Invalid username or password';
+        errorMsg.classList.add('show');
+      }
+    } catch {
+      errorText.textContent = 'Connection error. Try again.';
+      errorMsg.classList.add('show');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Sign In';
+    }
+  });
+</script>
+<button id="themeToggleBtn" onclick="toggleTheme()" title="Toggle tema">☀️</button>
+<script>
+  (function() {
+    const saved = localStorage.getItem('panelTheme') || 'dark';
+    if (saved === 'light') document.documentElement.classList.add('light');
+    document.getElementById('themeToggleBtn').textContent = saved === 'light' ? '🌙' : '☀️';
+  })();
+  function toggleTheme() {
+    const isLight = document.documentElement.classList.toggle('light');
+    localStorage.setItem('panelTheme', isLight ? 'light' : 'dark');
+    document.getElementById('themeToggleBtn').textContent = isLight ? '🌙' : '☀️';
+  }
+  // Load custom logo
+  fetch('/api/panel-config').then(r=>r.json()).then(cfg=>{
+    if (cfg.logo_url) {
+      const img = document.getElementById('loginLogoImg');
+      const svg = document.getElementById('loginLogoSvg');
+      const icon = document.getElementById('loginLogoIcon');
+      if (img) { img.src = cfg.logo_url + (cfg.logo_url.startsWith('/') ? '?t=' + Date.now() : ''); img.style.display = 'block'; }
+      if (svg) svg.style.display = 'none';
+      if (icon) icon.classList.add('has-img');
+    }
+  }).catch(()=>{});
+</script>
+</body>
+</html>
